@@ -21,7 +21,7 @@ public class ProductRepositoryTest : RepositoryTestBase
     [Fact]
     public async Task GetProduct_Success()
     {
-        var productRepository = new ProductRepository(ProductsContext);
+         var productRepository = new ProductRepository(ProductsContext);
         var expectedProduct = ProductList.First();
         var product = await productRepository.GetProduct(expectedProduct.Id);
         product.Should().BeEquivalentTo(expectedProduct);
@@ -48,7 +48,7 @@ public class ProductRepositoryTest : RepositoryTestBase
     public async Task UpdateProduct_Success()
     {
         var productRepository = new ProductRepository(ProductsContext);
-        var expectedProduct = ProductList.First();
+        var expectedProduct = ProductList[1];
         expectedProduct.Name = "Updated";
         await productRepository.UpdateProduct(expectedProduct,_ct);
         var updatedProduct = await ProductsContext.Products.FindAsync(expectedProduct.Id);
@@ -59,7 +59,7 @@ public class ProductRepositoryTest : RepositoryTestBase
     public async Task DeleteProduct_Success()
     {
         var productRepository = new ProductRepository(ProductsContext);
-        var deletedProduct = ProductList.First();
+        var deletedProduct = ProductList[2];
         await productRepository.DeleteProduct(deletedProduct.Id,_ct);
         var product = await ProductsContext.Products.FindAsync(deletedProduct.Id);
         product.Should().BeNull();
